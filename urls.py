@@ -16,8 +16,15 @@ Including another URLconf
 """
 from django.conf.urls import url, include, patterns
 from django.contrib import admin
+from django.conf.urls.static import static
+from django.conf import settings
+
 admin.autodiscover()
+
 urlpatterns = patterns('',
-    url(r'^', include('simplemooc.core.urls', namespace='core')),	
+    url(r'^', include('simplemooc.core.urls', namespace='core')),
+    url(r'^cursos/', include('simplemooc.curses.urls', namespace='curses')),
     url(r'^admin/', include(admin.site.urls)),
 )
+if settings.DEBUG:
+    urlpatterns +=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
